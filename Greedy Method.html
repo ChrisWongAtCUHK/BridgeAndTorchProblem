@@ -1,0 +1,40 @@
+
+<!-- saved from url=(0047)http://www.csie.ntnu.edu.tw/~u91029/Greedy.html -->
+<html lang="zh-TW"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8"><meta charset="UTF-8"><link rel="stylesheet" href="style.css">
+<title>演算法筆記 - Greedy Method</title></head><body>
+<p class="b">Bridge and Torch Problem</p>
+<p class="r">程度★　難度★★★</p>
+</div><div class="c">
+<p class="t">過橋問題</p>
+<p>月黑風高的夜晚，有一座不長不短的獨木橋，只能同時容兩人併行。</p>
+<p>此時正好有四個寂寞難耐、悲苦淒涼，事實上是窮極無聊的四個人路經此地。他們手邊僅帶著一支手電筒，想要通過這危險的獨木橋。那橋下可是暗潮洶湧，一失足便成千古恨，奔流到海不復回。</p>
+<p>幸好四人閒閒沒事就常走這座橋，對路況簡直熟悉到不行，閉著眼睛走都可以，於是乎四人知道自己過橋分別需時 1 分鐘、 2 分鐘、 5 分鐘、 10 分鐘。但是不管他們的腳程不可思議的快、莫名其妙的慢，四人都是貪生怕死之徒，手上沒有握著手電筒的話，誰都不敢過橋；四人也都是視財如命之徒，就是誰也不想浪費錢，去附近的便利商店買支手電筒，寧可摔到水裡隨波逐流環遊世界去。</p>
+<p>最後他們只好協議說，一次兩人同時持手電筒過橋，再請其中一人送回手電筒，沒事做的人就在橋邊哭爹喊娘等手電筒回來，如此一來四人最終都能夠順利過橋。</p>
+<p>兩人同時過橋時必須配合走得慢的人的速度，請問全員過橋最快要多久時間？有一些規矩你是知道的，例如不能把手電筒用丟的丟過河，不能四個人疊羅漢一起過橋，不能把橋拆了做木筏之類的。</p>
+<p class="t">演算法</p>
+<p>腳程快的人送手電筒回來那是最好的；相對地，腳程慢的人就應該讓他留在彼岸不要回來。不管先走後走，人人都還是要過橋，所以先試試看把腳程最慢的人送到對岸吧！</p>
+<p>當人數眾多，至少四人時，令 A 與 B 是最快與次快， C 與 D 是次慢與最慢。讓最慢的兩個人過橋主要有兩種方式，第一種是 AB 去 A 回、 CD 去 B 回，第二種是 AD 去 A 回、 AC 去 A 回，
+至於其它方式所花的時間恰好跟這兩種方式一樣。採用比較快的那一種方式，讓最慢的兩個人過橋之後，問題範疇就縮小了。</p>
+<p>時間複雜度是排序腳程快慢以及掃描一次所有數據所需的時間。</p>
+<div class="sh"><div class="bar">&nbsp;</div><ol><li><span class="comment">//&nbsp;各個人的腳程由慢到快排序</span></li><li><span class="type">int</span><span>&nbsp;</span><span class="word">a</span><span>[</span><span class="value">8</span><span>]&nbsp;=&nbsp;{</span><span class="value">1</span><span>,&nbsp;</span><span class="value">2</span><span>,&nbsp;</span><span class="value">5</span><span>,&nbsp;</span><span class="value">10</span><span>,&nbsp;</span><span class="value">15</span><span>,&nbsp;</span><span class="value">16</span><span>,&nbsp;</span><span class="value">30</span><span>,&nbsp;</span><span class="value">31</span><span>};</span></li><li>&nbsp;</li><li><span class="keyword">void</span><span>&nbsp;</span><span class="word">bridge_and_torch</span><span>()</span></li><li><span>{</span></li><li><span>&nbsp;&nbsp;&nbsp;&nbsp;</span><span class="type">int</span><span>&nbsp;</span><span class="word">n</span><span>,&nbsp;</span><span class="word">t</span><span>&nbsp;=&nbsp;</span><span class="value">0</span><span>;</span></li><li><span>&nbsp;&nbsp;&nbsp;&nbsp;</span><span class="keyword">for</span><span>&nbsp;(</span><span class="word">n</span><span>=</span><span class="value">8</span><span>-</span><span class="value">1</span><span>;&nbsp;</span><span class="word">n</span><span>&gt;=</span><span class="value">3</span><span>;&nbsp;</span><span class="word">n</span><span>-=</span><span class="value">2</span><span>)</span></li><li><span>&nbsp;&nbsp;&nbsp;&nbsp;{</span></li><li><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><span class="type">int</span><span>&nbsp;</span><span class="word">t1</span><span>&nbsp;=&nbsp;</span><span class="word">a</span><span>[</span><span class="value">0</span><span>]&nbsp;+&nbsp;</span><span class="word">a</span><span>[</span><span class="value">1</span><span>]*</span><span class="value">2</span><span>&nbsp;+&nbsp;</span><span class="word">a</span><span>[</span><span class="word">n</span><span>];</span></li><li><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><span class="type">int</span><span>&nbsp;</span><span class="word">t2</span><span>&nbsp;=&nbsp;</span><span class="word">a</span><span>[</span><span class="value">0</span><span>]*</span><span class="value">2</span><span>&nbsp;+&nbsp;</span><span class="word">a</span><span>[</span><span class="word">n</span><span>-</span><span class="value">1</span><span>]&nbsp;+&nbsp;</span><span class="word">a</span><span>[</span><span class="word">n</span><span>];</span></li><li><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><span class="word">t</span><span>&nbsp;+=&nbsp;</span><span class="word">min</span><span>(</span><span class="word">t1</span><span>,&nbsp;</span><span class="word">t2</span><span>);</span></li><li><span>&nbsp;&nbsp;&nbsp;&nbsp;}</span></li><li>&nbsp;</li><li><span>&nbsp;&nbsp;&nbsp;&nbsp;</span><span class="keyword">if</span><span>&nbsp;(</span><span class="word">n</span><span>&nbsp;==&nbsp;</span><span class="value">2</span><span>)&nbsp;</span><span class="word">t</span><span>&nbsp;+=&nbsp;</span><span class="word">a</span><span>[</span><span class="value">0</span><span>]&nbsp;+&nbsp;</span><span class="word">a</span><span>[</span><span class="value">1</span><span>]&nbsp;+&nbsp;</span><span class="word">a</span><span>[</span><span class="value">2</span><span>];</span></li><li><span>&nbsp;&nbsp;&nbsp;&nbsp;</span><span class="keyword">else</span><span>&nbsp;</span><span class="keyword">if</span><span>&nbsp;(</span><span class="word">n</span><span>&nbsp;==&nbsp;</span><span class="value">1</span><span>)&nbsp;</span><span class="word">t</span><span>&nbsp;+=&nbsp;</span><span class="word">a</span><span>[</span><span class="value">1</span><span>];</span></li><li><span>&nbsp;&nbsp;&nbsp;&nbsp;</span><span class="keyword">else</span><span>&nbsp;</span><span class="word">t</span><span>&nbsp;+=&nbsp;</span><span class="word">a</span><span>[</span><span class="value">0</span><span>];</span></li><li>&nbsp;</li><li><span>&nbsp;&nbsp;&nbsp;&nbsp;</span><span class="word">cout</span><span>&nbsp;&lt;&lt;&nbsp;</span><span class="string">"所有人過橋的總時間為"</span><span>&nbsp;&lt;&lt;&nbsp;</span><span class="word">t</span><span>;</span></li><li><span>}</span></li></ol></div><textarea style="display: none;">// 各個人的腳程由慢到快排序
+int a[8] = {1, 2, 5, 10, 15, 16, 30, 31};
+
+void bridge_and_torch()
+{
+	int n, t = 0;
+	for (n=8-1; n&gt;=3; n-=2)
+	{
+		int t1 = a[0] + a[1]*2 + a[n];
+		int t2 = a[0]*2 + a[n-1] + a[n];
+		t += min(t1, t2);
+	}
+
+	if (n == 2) t += a[0] + a[1] + a[2];
+	else if (n == 1) t += a[1];
+	else t += a[0];
+
+	cout &lt;&lt; "所有人過橋的總時間為" &lt;&lt; t;
+}
+</textarea>
+<p class="e">UVa <a href="http://uva.onlinejudge.org/external/100/10037.html">10037</a></p>
+</body></html>
